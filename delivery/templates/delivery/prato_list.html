@@ -1,0 +1,28 @@
+{% extends '../delivery/base.html' %}
+{%block titulo%}Menu{%endblock%}
+{%block conteudo%}
+	<div class="container">
+		<h2 class="pt-1 "style="font-size:20px;"><span class="badge badge-secondary">Pratos</span></h2>
+		<div class="row">
+			{%for j in object_list %}
+					<div class="pb-1 col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">{{j.nome}}</h5>
+								<p class="card-text">{{j.descricao}}</p>
+								<h2 style="float:right;"><span class="badge badge-info">R$ {{j.valor}}</span></h2>
+								<a href="{% url 'prato-delete' j.pk%}">
+									<button class="btn btn-outline-primary">Remover prato</button>
+								</a>
+							</div>
+						</div>
+					</div>
+			{%endfor%}
+		</div>
+		<div class="fab">
+			<a href="{% url 'prato-add'%}">
+				<button class="main"><span class="material-icons">+</span></button>
+			</a>
+		</div>
+	</div>
+{%endblock%}

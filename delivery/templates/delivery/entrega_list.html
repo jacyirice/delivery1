@@ -1,0 +1,26 @@
+{% extends '../delivery/base.html' %}
+{%block titulo%}Entregas{%endblock%}
+{%block conteudo%}
+	<div class="container">
+		<h2 class="pt-1 "style="font-size:20px;"><span class="badge badge-secondary">Entrega em andamento</span></h2>
+		<div class="row">
+			{%for i in pedidos %}
+				<div class="pb-1 col-sm-6">
+					<div class="card mb-3">
+						<div class="card-body">
+							<h5 style="float:right;"><span class="badge badge-success">Saiu para entrega</span></h5>
+							<h5 class="card-title">{{i.data_hora}}</h5>
+							<p class="card-text">
+								<ul class="list-group">
+									{%for j in i.pratos.pegarItens%}
+										<li class="list-group-item">{{j.prato.nome}} - {{j.quantidade}}</li>
+									{%endfor%}
+								</ul>
+							</p>
+						</div>
+					</div>
+				</div>
+			{%endfor%}
+		</div>
+	</div>
+{%endblock%}

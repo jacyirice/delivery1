@@ -1,0 +1,45 @@
+{% extends '../delivery/base.html' %}
+{%block titulo%}Pedidos{%endblock%}
+{%block conteudo%}
+	<div class="container">
+		<h2 class="pt-1 "style="font-size:20px;"><span class="badge badge-secondary">Pedidos</span></h2>
+		{%if object_list %}
+			<div class="row">
+				{%for i in object_list %}
+					<div class="pb-1 col-sm-6">
+						<div class="card mb-3">
+							<h5><div class="card-header text-center">
+								{{i.data_hora}}
+							</div></h5>
+							<div class="card-body">
+								<div>
+									{% if i.status == 1 %}
+										<h5><span class="badge badge-success">Em espera</span></h5>
+									{% elif i.status == 2 %}
+										<h5><span class="badge badge-success">Em produção</span></h5>
+									{% elif i.status == 3 %}
+										<h5><span class="badge badge-success">Cancelado</span></h5>
+									{% elif i.status == 4 %}
+										<h5><span class="badge badge-success">Saiu para entrega</span></h5>
+									{% else %}
+										<h5><span class="badge badge-secondary">Entregue</span></h5>
+									{% endif %}
+								</div>									
+								<p>Valor: R$ {{i.valor}}</p>
+							</div>
+						</div>
+					</div>
+				{%endfor%}
+			</div>
+		{% else %}
+			<div class="alert alert-danger" role="alert">
+				Você ainda não fez nenhum pedido!
+			</div>
+		{% endif %}
+		<div class="fab">
+			<a href="{% url 'home'%}">
+				<button class="main"><span>+</span></button>
+			</a>
+		</div>
+	</div>
+{%endblock%}

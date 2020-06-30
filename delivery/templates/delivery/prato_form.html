@@ -1,0 +1,48 @@
+{% extends '../delivery/base.html' %}
+{% block titulo %}Adicionar Prato{% endblock %}
+{% block conteudo %}
+	<div class='container'>
+		<h2>Adicionar prato</h2>
+		<form method="POST" >
+			{% csrf_token %}
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<div class="form-group">
+						<label for="id_nome">Nome:</label>
+						{{ form.nome }}
+						{%if form.nome.errors %}
+							{% for error in form.nome.errors %}
+								<div class="invalid-feedback">{{error}}</div>
+							{%endfor%}
+						{%endif%}
+					</div>
+					<div class="form-group">
+						<label for="id_categoria">Categoria:</label>
+						{{ form.categoria }}
+					</div>
+					<div class="form-group">
+						<label for="id_valor">Valor:</label>
+						{{ form.valor }}
+						{%if form.valor.errors %}
+							{% for error in form.valor.errors %}
+								<div class="invalid-feedback">{{error}}</div>
+							{%endfor%}
+						{%endif%}
+					</div>
+					<div class="form-group">
+						<div class="form-check">
+							{{ form.sugestao}}
+							<label class="form-check-label" for="id_sugestao">Sugestão</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+						<label for="id_descricao">Descrição:</label>
+						{{ form.descricao }}
+					</div>
+				</div>
+				
+			<input type="submit" class="btn btn-primary " value="Salvar">
+		</form>
+	</div>
+{% endblock %}

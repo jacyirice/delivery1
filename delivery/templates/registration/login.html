@@ -1,0 +1,53 @@
+{% extends '../delivery/base.html' %}
+{%block titulo%}Login{%endblock%}
+{%block style%}
+	<link href="https://getbootstrap.com/docs/4.0/examples/floating-labels/floating-labels.css" rel="stylesheet">
+
+	<style>
+		.login {
+			/*display: flex;*/
+			position: relative;
+			justify-self: center;
+			width: 100%; 
+		}
+		@media only screen and (min-width: 960px) {
+			.login {
+				width: 510px;
+				box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.05), 0px 4px 16px rgba(0, 0, 0, 0.06);
+				border-radius: 8px;
+				padding: 36px 50px;
+				background-color: #fff;
+				align-self: center; 
+			} 
+		}
+	</style>	
+{%endblock%}
+{%block conteudo_login%}
+	<div class='login'>
+		<!-- <div> -->
+		<form class='form-signin' action="." method="post">
+			<div class="text-center mb-4">
+				<h2 class='h3 mb-3 font-weight-normal'>Login</h2>
+			</div>
+			{% csrf_token %}
+			{% if form.errors %}
+				<div class="alert alert-danger" role="alert">Usuario ou senha incorretos.</div>
+			{% endif %}
+			<div class="form-group form-label-group">
+				<input class="form-control" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username" type="text" aria-label="Usuário" placeholder="Usuário">
+				<label for="id_username">Usuário</label>
+			</div>
+
+			<div class="form-group form-label-group">
+				<input class="form-control ls-login-bg-password input-lg" id="id_password" type="password" name="password" aria-label="Senha" placeholder="Senha" autocomplete="current-password" required="">
+				<label for="id_password">Senha</label>
+			</div>
+			<input type="submit" value="Entrar" class="btn btn-primary btn-lg btn-block">
+		</form>
+		  <div class="dropdown-divider">add</div>
+
+		<!-- ou -->
+		<a class="dropdown-item" href="{% url 'cadastroCliente'%}">Não tem login? Faça seu cadastro aqui!</a>
+	<!-- </div> -->
+	</div>
+{%endblock%}

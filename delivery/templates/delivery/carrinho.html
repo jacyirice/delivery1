@@ -1,0 +1,52 @@
+{% extends '../delivery/base.html' %}
+{%block titulo%}Carrinho{%endblock%}
+{%block conteudo%}
+<div class='container'>
+	<h2 class="pt-1 "style="font-size:20px;"><span class="badge badge-secondary">Carrinho</span></h2>
+	<div class="table-responsive">
+		<table class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<td>Nome</td>
+					<td>Descrição</td>
+					<td>Valor</td>
+					<td>Quant</td>
+					<td>Valor Total</td>
+					<td></td>	
+				</tr>
+			</thead>
+			<tbody>
+				{%for i in itens%}
+					<tr>
+						<td>{{i.prato.nome}}</td>
+						<td>{{i.prato.descricao}}</td>
+						<td>R$ {{i.prato.valor}}</td>
+						<td>{{i.quantidade}}</td>
+						<td></td>
+						<td>
+							<form action="{% url 'carrinho-delete'%}" method="POST">
+								{% csrf_token %}
+								<input type="hidden" name="id_item" value="{{i.pk}}">
+								<input type="submit" class="btn btn-danger" value="Remover">
+							</form>
+						</td>
+					</tr>
+				{%endfor%}
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>R$ {{total}}</td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<form action="{% url 'finalizarPedido'%}" method="POST">
+		{% csrf_token %}
+		<input type="hidden" name="id" value="{{id}}">
+		<button type="submit" class='btn btn-primary' style='float: right;'>Finalizar</button>
+	</form>
+</div>
+{%endblock%}

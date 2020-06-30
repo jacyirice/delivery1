@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=0">
+		<title> {% block titulo %}{% endblock %}</title>
+
+		<!-- CSS Bootstrap -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<style>
+			.bi::before {
+				display: inline-block;
+				content: "";
+				background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' d='M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z' clip-rule='evenodd'/></svg>");
+				background-repeat: no-repeat;
+				background-size: 1rem 1rem;
+			}
+			.fab{
+				position: fixed;
+				bottom:10px;
+				right:10px;
+			}
+
+			.fab button{
+				cursor: pointer;
+				width: 48px;
+				height: 48px;
+				border-radius: 30px;
+				background-color: #cb60b3;
+				border: none;
+				box-shadow: 0 1px 5px rgba(0,0,0,.4);
+				font-size: 24px;
+				color: white;
+			}
+
+
+			.fab button.main{
+				position: absolute;
+				width: 60px;
+				height: 60px;
+				border-radius: 30px;
+				background-color: #5b19b7;
+				right: 0;
+				bottom: 0;
+				z-index: 20;
+			}
+
+			.alertDiv{
+				display: block;
+				position: fixed; 
+				top: 10; 
+				left: 60%; 
+				right: 0%; 
+				width: 40%; 
+				padding-top: 10px; 
+				z-index: 9999
+			}
+
+		</style>
+		{%block style%}{%endblock%}
+	</head>
+	<body>
+		{% block conteudo_login %}
+			<!-- Navbar horizontal -->
+			<nav class="navbar navbar-light bg-light">
+				<img src="https://upload.wikimedia.org/wikipedia/pt/thumb/c/cf/Logotipo_do_Burger_King.svg/1200px-Logotipo_do_Burger_King.svg.png" width="30" height="30" class="d-inline-block align-top" alt="">
+				{% if user.is_authenticated %}
+					<div class="btn-group">
+						<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.first_name}}</button>
+						<div class="dropdown-menu dropdown-menu-right">
+							<a class="nav-link" href="{% url 'home' %}"><button class="dropdown-item" type="button">Menu</button></a>
+							{%if user.groups.all.0.name ==  'Cliente' %}
+								<a class="nav-link" href="{% url 'pedidos_by_cliente' %}"><button class="dropdown-item" type="button">Pedidos</button></a>
+							{%elif user.groups.all.0.name == 'Funcionario' %}
+								<a class="nav-link" href="{% url 'pedidos_list' %}"><button class="dropdown-item" type="button">Pedidos</button></a>
+								<a class="nav-link" href="{% url 'entrega_list' %}"><button class="dropdown-item" type="button">Entregas</button></a>
+							{%endif%}
+							<div class="dropdown-divider"></div>
+							<a class="nav-link" href="{% url 'logout' %}"><button class="dropdown-item" type="button">Logout</button></a>
+						</div>
+					</div>
+				{% else %}
+				<div class="row">
+					<a class="nav-link" href="{% url 'cadastroCliente' %}">
+						<button class="btn btn-outline-primary my-2 my-sm-0" type="button">Cadastrar</button>
+					</a>
+					<a class="nav-link" href="{% url 'login' %}">
+						<button class="btn btn-outline-primary my-2 my-sm-0" type="button">Login</button>
+					</a></div>
+				{% endif %}
+			</nav>
+			{% if messages %}
+				<div class="alert alertDiv">
+				{% for message in messages %}
+					{% if message.tags %} 
+						<div class="alert alert-{{message.tags}} alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							{{ message }}
+						</div>
+					{% endif %}	
+				{% endfor %}
+				</div>
+			{% endif %}
+		{% endblock %}
+		{%block conteudo%}{%endblock%}
+		<!-- Scripts jquery -->
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.12/jquery.mask.min.js"></script>
+
+		<!-- Scripts bootstrap -->
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+		{%block script%}{%endblock%}
+	</body>
+</html>

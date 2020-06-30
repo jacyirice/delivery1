@@ -1,0 +1,102 @@
+{% extends '../delivery/base.html' %}
+{% block titulo %}Cadastrar{% endblock %}
+{% block conteudo %}
+	<div class='container'>
+		<h2>Cadastrar</h2>
+		<form action="" method="POST" >
+			{% csrf_token %}
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<div class="form-group">
+						<label for="id_nome">Nome:</label>
+						{{ form.nome }}
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					<div class="form-group">
+						<label for="id_sobrenome">Sobrenome:</label>
+						{{ form.sobrenome }}
+					</div>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<div class="form-group">
+						<label for="id_cpf">CPF:</label>
+						{{ form.cpf }}
+						{%if form.cpf.errors %}
+							{% for error in form.cpf.errors %}
+								<div class="invalid-feedback">{{error}}</div>
+							{%endfor%}
+						{%endif%}
+					</div>
+				</div>
+				<div class="form-group col-md-4">
+					<div class="form-group">
+						<label for="id_email">Email:</label>
+						{{ form.email }}
+							{%if form.email.errors %}
+							{% for error in form.email.errors %}
+								<div class="invalid-feedback">{{error}}</div>
+							{%endfor%}
+						{%endif%}
+					</div>
+				</div>
+				<div class="form-group col-md-4">
+					<div class="form-group">
+						<label for="id_telefone">Telefone:</label>
+						{{ form.telefone }}
+					</div>
+				</div>
+			</div>
+			<div class="dropdown-divider"></div>
+
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<div class="form-group">
+						<label for="id_cep">CEP:</label>
+						{{ form.cep }}
+					</div>
+				</div>
+				<div class="form-group col-md-4">
+					<div class="form-group">
+						<label for="id_lougradouro">Logradouro:</label>
+						{{ form.logradouro }}
+					</div>
+				</div>
+				<div class="form-group col-md-4">
+					<div class="form-group">
+						<label for="id_complemento">Complemento:</label>
+						{{ form.complemento }}
+					</div>
+				</div>
+			</div>
+			<div class="dropdown-divider"></div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="id_username">Login</label>
+					{{ form.username}}
+					{%if form.username.errors %}
+						{% for error in form.username.errors %}
+							<div class="invalid-feedback">{{error}}</div>
+						{%endfor%}
+					{%endif%}
+				</div>
+				<div class="form-group col-md-6">
+					<label for="id_senha">Senha</label>
+					{{ form.password}}
+				</div>
+			</div>
+			<input type="submit" class="btn btn-primary " value="Salvar">
+		</form>
+	</div>
+{% endblock %}
+{%block script%}
+	<script>
+		$(document).ready(function () { 
+			$("#id_cpf").mask('999.999.999-99');
+			$("#id_telefone").mask('(99) 99999-9999');
+			$("#id_cep").mask('99999-999');
+		});
+	</script>
+{% endblock %}

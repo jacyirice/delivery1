@@ -1,0 +1,15 @@
+Usuarios:
+	admin:
+		login:admin
+		senha:1
+	Funcionario(Se for criar um outro funcionario, adicione-o no grupo Funcionarios):
+		login:joao
+		senha:1w2q3w4e
+	Cliente(Crie atraves do site):
+		login:gui
+		senha:1w2q3w4e
+
+***Se não encontrar***
+	Para adicionar um prato, clique no botao + em roxo no canto inferior direito, após o login
+	Clique no nome do usuario(no menu), será exibido um dropdown com as sessões disponiveis
+
